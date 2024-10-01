@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "cw-django"
+version = "0.1.0"
+description = ""
+authors = ["m.romantsov <romancov_dzr@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.1"
+psycopg2-binary = "^2.9.9"
+pillow = "^10.4.0"
+ipython = "^8.27.0"
+python-slugify = "^8.0.4"
+slugify = "^0.0.1"
+requests = "^2.32.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
