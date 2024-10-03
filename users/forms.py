@@ -1,6 +1,7 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm, BooleanField
 
-from newsletter.models import Message, Mailing
+from users.models import User
 
 
 class StyleFormMixin(ModelForm):
@@ -13,13 +14,11 @@ class StyleFormMixin(ModelForm):
                 field.widget.attrs["class"] = "form-control"
 
 
-class MessageForm(StyleFormMixin, ModelForm):
+class UserRegisterForm(StyleFormMixin, UserCreationForm):
     class Meta:
-        model = Message
-        fields = '__all__'
-
-
-class MailingForm(StyleFormMixin, ModelForm):
-    class Meta:
-        model = Mailing
-        fields = '__all__'
+        model = User
+        fields = (
+            "email",
+            "password1",
+            "password2",
+        )

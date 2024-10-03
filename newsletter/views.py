@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from newsletter.forms import MessageForm
+from newsletter.forms import MessageForm, MailingForm
 from newsletter.models import Mailing, Message
 
 
@@ -39,6 +39,8 @@ class MailingDetailView(ListView):
 
 class MailingCreateView(ListView):
     model = Mailing
+    form_class = MailingForm
+
 
 
 class MailingUpdateView(ListView):

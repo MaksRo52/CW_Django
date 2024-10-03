@@ -13,11 +13,11 @@
                         <p class="card-text">{{ message.content | slice:":100" }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <a class="btn btn-primary" href="{% url 'newsletter:message_info' message.pk %}"
+                                <a class="btn btn-primary" href="{% url 'newsletter:mailing_info' message.pk %}"
                                    role="button">Посмотреть</a>
-                                <a class="btn btn-primary" href="{% url 'newsletter:message_update' message.pk %}"
+                                <a class="btn btn-primary" href="{% url 'newsletter:mailing_update' message.pk %}"
                                    role="button">Изменить</a>
-                                <a class="btn btn-primary" href="{% url 'newsletter:message_delete' message.pk %}"
+                                <a class="btn btn-primary" href="{% url 'newsletter:mailing_delete' message.pk %}"
                                    role="button">Удалить</a>
                             </div>
 
