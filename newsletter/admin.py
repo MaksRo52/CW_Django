@@ -17,4 +17,9 @@ class MessageAdmin(admin.ModelAdmin):
 class ClientAdmin(admin.ModelAdmin):
     list_display = ("name", "email")
 
+@admin.register(Mailing)
+class MailingAdmin(admin.ModelAdmin):
+    list_display = ( "status", "message_id")
+
+
 

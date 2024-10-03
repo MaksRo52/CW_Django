@@ -35,8 +35,8 @@ class Mailing(models.Model):
     date_of_first_mail = models.DateTimeField(verbose_name='Дата первой отправки',  **NULLABLE)
     periodicity = models.CharField(max_length=1, verbose_name='Периодичность', choices={"D": "Раз в день", "W": "Раз в неделю", "M": "Раз в месяц"})
     status = models.CharField(max_length=20, verbose_name="Статус рассылки", choices={"C": "Создана", "W": "Запущена", "F": "Завершена"})
-    # message_id =  models.OneToOneField(Message, on_delete=models.CASCADE, verbose_name="Сообщение", help_text="Выберите сообщение")
-    # client_id = models.ManyToManyField(Client, verbose_name="Клиенты")
+    message_id =  models.OneToOneField(Message, on_delete=models.CASCADE, verbose_name="Сообщение", help_text="Выберите сообщение")
+    client_id = models.ManyToManyField(Client, verbose_name="Клиенты")
 
     class Meta:
         verbose_name = 'Рассылка'
