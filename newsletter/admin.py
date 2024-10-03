@@ -9,17 +9,17 @@ from users.models import User
 class UserAdmin(admin.ModelAdmin):
     list_display = ("email", "token")
 
+
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
     list_display = ("theme",)
+
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ("name", "email")
 
+
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ( "status", "message_id")
-
-
-
+    list_display = ("status", "message_id")

@@ -1,9 +1,16 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 
 from newsletter.forms import MessageForm, MailingForm
-from newsletter.models import Mailing, Message
+from newsletter.models import Mailing, Message, Client
 
 
 class MessageListView(ListView):
@@ -33,19 +40,62 @@ class MailingListView(ListView):
     model = Mailing
 
 
-class MailingDetailView(ListView):
-    model = Mailing
-
-
-class MailingCreateView(ListView):
+class MailingDetailView(LoginRequiredMixin, DetailView):
     model = Mailing
     form_class = MailingForm
 
 
-
-class MailingUpdateView(ListView):
+class MailingCreateView(LoginRequiredMixin, CreateView):
     model = Mailing
+    form_class = MailingForm
+    success_url = reverse_lazy("newsletter:mailing_list")
+    permission_required = "newsletter.add_mailing"
+
+    def form_valid(self, form):
+        mailing = form.save()
+        user = self.request.user
+        mailing.autor = user
+        mailing.save()
+        return super().form_valid(form)
 
 
-class MailingDeleteView(ListView):
+class MailingUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
     model = Mailing
+    form_class = MailingForm
+    success_url = reverse_lazy("newsletter:mailing_list")
+
+
+class MailingDeleteView(DeleteView):
+    model = Mailing
+    success_url = reverse_lazy("newsletter:mailing_list")
+    permission_required = "newsletter.delete_mailing"
+
+
+class ClientCreateView(LoginRequiredMixin, CreateView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
+    model = Client
+
+
+class ClientUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
+    model = Client
+
+
+class ClientDeleteView(DeleteView):
+    model = Client
+
+
+class ClientListView(LoginRequiredMixin, ListView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
+    model = Client
+
+
+class ClientDetailView(LoginRequiredMixin, DetailView):
+    login_url = "users:login"
+    redirect_field_name = "redirect_to"
+    model = Client
